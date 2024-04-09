@@ -5,31 +5,31 @@ import jakarta.persistence.*;
 @Entity
 public class Product {
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@ManyToOne   // need to identify foreign key field name
-	@JoinColumn(name="VendorID") 
+
+	@ManyToOne // need to identify foreign key field name
+	@JoinColumn(name = "VendorID")
 	public Vendor vendor;
-	private String partnumber;
+	private String partNumber;
 	private String name;
 	private float price;
 	private String unit;
-	private String photopath;
-	
+	private String photoPath;
+
 	public Product() {
 		super();
 	}
 
-	public Product(int id, Vendor vendor, String partnumber, String name, float price, String unit, String photopath) {
+	public Product(int id, Vendor vendor, String partNumber, String name, float price, String unit, String photoPath) {
 		super();
 		this.id = id;
 		this.vendor = vendor;
-		this.partnumber = partnumber;
+		this.partNumber = partNumber;
 		this.name = name;
 		this.price = price;
 		this.unit = unit;
-		this.photopath = photopath;
+		this.photoPath = photoPath;
 	}
 
 	public int getId() {
@@ -49,11 +49,11 @@ public class Product {
 	}
 
 	public String getPartnumber() {
-		return partnumber;
+		return partNumber;
 	}
 
-	public void setPartnumber(String partnumber) {
-		this.partnumber = partnumber;
+	public void setPartnumber(String partNumber) {
+		this.partNumber = partNumber;
 	}
 
 	public String getName() {
@@ -81,13 +81,11 @@ public class Product {
 	}
 
 	public String getPhotopath() {
-		return photopath;
+		return photoPath;
 	}
 
-	public void setPhotopath(String photopath) {
-		this.photopath = photopath;
+	public void setPhotopath(String photoPath) {
+		this.photoPath = photoPath;
 	}
-	
-	
-	
+
 }
