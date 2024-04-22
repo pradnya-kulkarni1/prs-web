@@ -5,6 +5,13 @@ import jakarta.persistence.*;
 @Entity
 public class User {
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", phone=" + phone + ", email=" + email + ", reviewer=" + reviewer
+				+ ", admin=" + admin + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;

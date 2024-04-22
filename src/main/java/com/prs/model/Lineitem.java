@@ -60,6 +60,11 @@ public class Lineitem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return "Lineitem [id=" + id + ", request=" + request + ", product=" + product + ", quantity=" + quantity + "]";
+	}
 	
 	
 	

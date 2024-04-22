@@ -3,7 +3,7 @@ package com.prs.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
+import jakarta.persistence.metamodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -50,11 +50,11 @@ public class RequestController {
 		}
 	}
 
-	@GetMapping("/reviews/{UserId}")
+	@GetMapping("/review/{UserId}")
 	public List<Request> getAllRequestForReview(@PathVariable int UserId) {
 		System.out.println("Status = " + REVIEW + " userid = " + UserId);
 		List<Request> req = requestRepo.findByStatusAndUserIdNot(REVIEW, UserId);
-
+		for(Request r : req)System.out.println("requests other than user logged in= "+r);
 		return req;
 	}
 
@@ -64,12 +64,12 @@ public class RequestController {
 		Request request = requestRepo.getById(id);
 		if (request.getTotal() <= 50.0) {
 			request.setStatus(APPROVE);
-			request.setSubmitteddate(LocalDateTime.now());
+			request.setSubmittedDate(LocalDateTime.now());
 		} else {
 
 			request.setStatus(REVIEW);
 		}
-
+		System.out.println("Request Status changed");
 		return requestRepo.save(request);// insert into request from body
 
 	}
@@ -89,7 +89,7 @@ public class RequestController {
 
 		request.setReasonForRejection(reasonForRejection);
 		request.setStatus(REJECT);
-
+		System.out.println("Request Rejected"+ id);
 		return requestRepo.save(request);// insert into request from body
 
 	}
@@ -98,7 +98,7 @@ public class RequestController {
 	public Request addRequest(@RequestBody Request request) {
 
 		request.setStatus(NEW);
-		request.setSubmitteddate(LocalDateTime.now());
+		request.setSubmittedDate(LocalDateTime.now());
 		request.setTotal(0);
 
 		return requestRepo.save(request);// insert into request from body

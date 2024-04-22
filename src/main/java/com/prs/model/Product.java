@@ -48,11 +48,11 @@ public class Product {
 		this.vendor = vendor;
 	}
 
-	public String getPartnumber() {
+	public String getPartNumber() {
 		return partNumber;
 	}
 
-	public void setPartnumber(String partNumber) {
+	public void setPartNumber(String partNumber) {
 		this.partNumber = partNumber;
 	}
 
@@ -80,12 +80,18 @@ public class Product {
 		this.unit = unit;
 	}
 
-	public String getPhotopath() {
+	public String getPhotoPath() {
 		return photoPath;
 	}
 
-	public void setPhotopath(String photoPath) {
+	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", vendor=" + vendor + ", partNumber=" + partNumber + ", name=" + name + ", price="
+				+ price + ", unit=" + unit + ", photoPath=" + photoPath + "]";
 	}
 
 }

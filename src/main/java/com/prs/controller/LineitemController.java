@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,12 +40,15 @@ public class LineitemController {
 
 	@GetMapping("/{id}")
 	public Lineitem getAllLineitemById(@PathVariable int id) {
-		// Optional class is a container object which is used to cotain a value that
+		// Optional class is a container object which is used to contain a value that
 		// might or might not be used.
+		System.out.println("getAllLineitemById "+id);
 		Optional<Lineitem> l = lineitemRepo.findById(id);
 
 		if (l.isPresent()) {
-			return l.get(); // select * from Lineitem where id = id
+			
+			return l.get();
+			// select * from Lineitem where id = id
 		} else {
 			System.err.println("Lineitem[" + id + "] does not exist");
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lineitem not found: id [" + id + "]");
@@ -52,15 +56,34 @@ public class LineitemController {
 
 	}
 
+//	@GetMapping("/getlinesforrequest/{id}")
+//	public List<Lineitem> getLineitemsForRequest(@PathVariable int id) {
+//		Optional<Lineitem> l = lineitemRepo.findById(id);
+//		List<Lineitem> linesByRequest = new ArrayList<Lineitem>();
+//
+//		if (l.isPresent()) {
+//			Lineitem l2 = l.get();
+//			Request r = l2.getRequest();
+//			linesByRequest = lineitemRepo.findByRequest(r);
+//		} else
+//			System.out.println("LineItem does not exist");
+//
+//		return linesByRequest;
+//
+//	}
 	@GetMapping("/getlinesforrequest/{id}")
-	public List<Lineitem> getLineitemsForRequest(@PathVariable int id) {
-		Optional<Lineitem> l = lineitemRepo.findById(id);
+	public List<Lineitem> getLineitemsForRequest1(@PathVariable int id) {
+		System.out.println("getlinesforrequest : "+id);
+		Optional<Request> r = requestRepo.findById(id);
 		List<Lineitem> linesByRequest = new ArrayList<Lineitem>();
 
-		if (l.isPresent()) {
-			Lineitem l2 = l.get();
-			Request r = l2.getRequest();
-			linesByRequest = lineitemRepo.findByRequest(r);
+		if (r.isPresent()) {
+			Request req = r.get();
+			linesByRequest = lineitemRepo.findByRequest(req);
+			System.out.println("linesByRequest:");
+			for (Lineitem li: linesByRequest) {
+				System.out.println(li);
+			}
 		} else
 			System.out.println("LineItem does not exist");
 
@@ -72,6 +95,7 @@ public class LineitemController {
 	public Lineitem addLineitem(@RequestBody Lineitem lineitem) {
 		Lineitem l1 = null;
 		Request r = null;
+		System.out.println("saving line item: "+lineitem);
 		l1 = lineitemRepo.save(lineitem);// insert into lineitem from body
 		r = requestRepo.getById(l1.getRequest().getId());
 		recalculateRequestTotal2(r);
@@ -98,7 +122,7 @@ public class LineitemController {
 				System.err.println(e);
 				throw e;
 			}
-
+		System.out.println("LineitemId after update "+l.getId());
 		return l;
 
 	}

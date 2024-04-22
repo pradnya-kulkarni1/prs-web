@@ -25,7 +25,7 @@ public class Request {
 	public Request() {
 		super();
 	}
-	public Request(int id, User user, String description, String justification, LocalDate dateNeeded, String deliverymode,
+	public Request(int id, User user, String description, String justification, LocalDate dateNeeded, String deliveryMode,
 			String status, float total, LocalDateTime submittedDate, String reasonForRejection) {
 		super();
 		this.id = id;
@@ -87,10 +87,10 @@ public class Request {
 	public void setTotal(float total) {
 		this.total = total;
 	}
-	public LocalDateTime getSubmitteddate() {
+	public LocalDateTime getSubmittedDate() {
 		return submittedDate;
 	}
-	public void setSubmitteddate(LocalDateTime submittedDate) {
+	public void setSubmittedDate(LocalDateTime submittedDate) {
 		this.submittedDate = submittedDate;
 	}
 	public String getReasonForRejection() {
@@ -98,6 +98,13 @@ public class Request {
 	}
 	public void setReasonForRejection(String reasonForRejection) {
 		this.reasonForRejection = reasonForRejection;
+	}
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", user=" + user + ", description=" + description + ", justification="
+				+ justification + ", dateNeeded=" + dateNeeded + ", deliveryMode=" + deliveryMode + ", status=" + status
+				+ ", total=" + total + ", submittedDate=" + submittedDate + ", reasonForRejection=" + reasonForRejection
+				+ "]";
 	}
 	
 	
